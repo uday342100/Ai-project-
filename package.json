@@ -1,0 +1,17 @@
+{
+  "name": "ai-project-library-new",
+  "version": "1.0.0",
+  "description": "A full-stack application to search for books and navigate through a library using pathfinding algorithms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
