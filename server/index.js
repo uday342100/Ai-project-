@@ -87,21 +87,23 @@ MOCK_BOOKS.forEach(book => {
     book.distance = path.length;
 });
 
-app.get('/books', (req, res) => res.json(MOCK_BOOKS));
-app.get('/books/search', (req, res) => {
+const apiRouter = express.Router();
+
+apiRouter.get('/books', (req, res) => res.json(MOCK_BOOKS));
+apiRouter.get('/books/search', (req, res) => {
     const { title } = req.query;
     res.json(MOCK_BOOKS.filter(b => b.title.toLowerCase().includes(title.toLowerCase())));
 });
-app.get('/books/filter', (req, res) => {
+apiRouter.get('/books/filter', (req, res) => {
     const { category } = req.query;
     res.json(MOCK_BOOKS.filter(b => b.category === category));
 });
 
-app.get('/layout', (req, res) => {
+apiRouter.get('/layout', (req, res) => {
     res.json({ grid: OBSTACLES, rooms: ROOMS });
 });
 
-app.post('/path', async (req, res) => {
+apiRouter.post('/path', async (req, res) => {
     const { book_id, algorithm } = req.body;
     const book = MOCK_BOOKS.find(b => b.id == book_id);
     if (!book) return res.status(404).send('Book not found');
@@ -115,4 +117,10 @@ app.post('/path', async (req, res) => {
     res.json({ path, grid: OBSTACLES, rooms: ROOMS });
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.use('/api', apiRouter);
+
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+module.exports = app;

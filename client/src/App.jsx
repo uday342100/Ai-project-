@@ -9,7 +9,7 @@ import MapView from './components/MapView';
 import './App.css';
 import heroBooksHorizontal from './assets/hero_books_horizontal.png';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE = import.meta.env.PROD ? '/api' : 'http://localhost:5000/api';
 
 const HomePage = () => {
   const navigate = useNavigate();
